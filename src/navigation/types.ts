@@ -2,7 +2,7 @@
 export type RootStackParamList = {
   Home: undefined;
   Quiz: undefined;
-  Result: undefined;
+  Result: { score: number };
   Ranking: undefined;
 };
 
