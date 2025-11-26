@@ -18,10 +18,14 @@ export const styles = StyleSheet.create({
         marginBottom: 30,
     },
     title: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#FFF',
+        fontSize: 45,
+        fontFamily: 'MountainsofChristmas_700Bold',
         marginBottom: 8,
+        color: '#ff9d00ff',
+        textShadowColor: '#8B4513',
+        textShadowOffset: { width: -2, height: 2 },
+        textShadowRadius: 1,
+
     },
     subtitle: {
         fontSize: 14,
@@ -40,12 +44,15 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingBottom: 12,
         borderBottomWidth: 1,
-        borderBottomColor: '#5C1A1A',
+        borderBottomColor: '#051f0dff',
     },
     headerText: {
         color: '#ffb300ff',
-        fontSize: 12,
+        fontSize: 15,
         fontWeight: 'bold',
+        textShadowColor: '#8B4513',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 1,
     },
     listContent: {
         paddingTop: 8,
