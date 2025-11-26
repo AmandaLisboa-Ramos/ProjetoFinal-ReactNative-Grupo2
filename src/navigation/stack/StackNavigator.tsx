@@ -18,25 +18,26 @@ export default function StackNavigator() {
         headerStyle: stackStyles.headerStyle,
         headerTintColor: headerTintColor,
         headerTitleStyle: stackStyles.headerTitleStyle,
+        contentStyle: { backgroundColor: 'transparent' },
       }}
     >
-      <Stack.Screen 
-        name="Home" 
+      <Stack.Screen
+        name="Home"
         component={HomeScreen}
         options={{ title: 'Desafio do Grinch' }}
       />
-      <Stack.Screen 
-        name="Quiz" 
+      <Stack.Screen
+        name="Quiz"
         component={QuizScreen}
         options={{ title: 'Quiz' }}
       />
-      <Stack.Screen 
-        name="Result" 
+      <Stack.Screen
+        name="Result"
         component={ResultScreen}
         options={{ title: 'Resultado' }}
       />
-      <Stack.Screen 
-        name="Ranking" 
+      <Stack.Screen
+        name="Ranking"
         component={RankingScreen}
         options={{ title: 'Ranking' }}
       />
