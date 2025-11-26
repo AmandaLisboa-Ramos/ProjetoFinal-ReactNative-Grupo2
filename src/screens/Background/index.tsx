@@ -46,7 +46,6 @@ export default function BG({ children }: { children: React.ReactNode }) {
 
     return (
         <View style={styles.container}>
-            {/* Vídeo de fundo */}
             <Video
                 ref={videoRef}
                 source={require('../../assets/BG_Video.mp4')}
@@ -57,9 +56,7 @@ export default function BG({ children }: { children: React.ReactNode }) {
                 isMuted
             />
 
-            {/* Camada de conteúdo (neve + telas) por cima do vídeo */}
             <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
-                {/* Flocos de neve */}
                 {snowflakes.map((snowflake) => {
                     const translateY = snowflake.animatedValue.interpolate({
                         inputRange: [0, 1],
@@ -82,7 +79,6 @@ export default function BG({ children }: { children: React.ReactNode }) {
                     );
                 })}
 
-                {/* Conteúdo da tela */}
                 {children}
             </View>
         </View>

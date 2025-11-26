@@ -30,11 +30,9 @@ export default function RankingScreen({ navigation }: any) {
       const formattedData: RankingData[] = data.map(item => ({
         id: item.id,
         nome: item.nome,
-        // Remove non-numeric characters and parse, default to 0
         pontuacao: parseInt(item.pontos.replace(/\D/g, '')) || 0
       }));
 
-      // Ordena do maior para o menor
       const sorted = formattedData.sort((a: RankingData, b: RankingData) => b.pontuacao - a.pontuacao);
       setRanking(sorted);
     } catch (error) {
@@ -89,7 +87,7 @@ export default function RankingScreen({ navigation }: any) {
         style={styles.button}
         onPress={() => navigation.navigate('Home')}
       >
-        <Text style={styles.buttonText}>Voltar para o Quiz</Text>
+        <Text style={styles.buttonText}>Voltar para Tela Inicial</Text>
       </TouchableOpacity>
     </View>
   );

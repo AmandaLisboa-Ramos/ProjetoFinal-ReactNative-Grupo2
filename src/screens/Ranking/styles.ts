@@ -25,14 +25,14 @@ export const styles = StyleSheet.create({
     },
     subtitle: {
         fontSize: 14,
-        color: '#D4AF37',
+        color: '#ffb300ff',
     },
     rankingContainer: {
-        backgroundColor: '#3d0f0f50',
-        borderRadius: 12,
+        backgroundColor: '#5196347b',
+        borderRadius: 14,
         padding: 16,
         flex: 1,
-        marginBottom: 20,
+        marginBottom: 80,
     },
     tableHeader: {
         flexDirection: 'row',
@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
         borderBottomColor: '#5C1A1A',
     },
     headerText: {
-        color: '#D4AF37',
+        color: '#ffb300ff',
         fontSize: 12,
         fontWeight: 'bold',
     },
@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
     rankingItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#4D1515',
+        backgroundColor: '#154d1aff',
         borderRadius: 8,
         padding: 12,
         marginVertical: 6,
@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
         width: 36,
         height: 36,
         borderRadius: 18,
-        backgroundColor: '#D4AF37',
+        backgroundColor: '#ffb300ff',
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 12,
@@ -81,15 +81,16 @@ export const styles = StyleSheet.create({
         fontWeight: '600',
     },
     scoreText: {
-        color: '#FFD700',
+        color: '#ffb300ff',
         fontSize: 18,
         fontWeight: 'bold',
     },
     button: {
-        backgroundColor: '#8B4513',
+        backgroundColor: '#154d1aff',
         borderRadius: 8,
         padding: 16,
         alignItems: 'center',
+        marginBottom: 30,
     },
     buttonText: {
         color: '#FFF',
