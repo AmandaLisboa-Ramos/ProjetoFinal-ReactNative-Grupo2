@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { questionStyles as Styles } from '../../screens/Quiz/styles';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { styles } from './styles';
 
 type Props = {
   question: string;
@@ -18,25 +18,35 @@ export default function QuestionCard({
   onSelect,
 }: Props) {
   return (
-    <View style={Styles.container}>
-      <Text style={Styles.question}>{question}</Text>
+    <View style={styles.container}>
+      <Text style={styles.question}>{question}</Text>
 
       {options.map((opt, index) => {
-        let backgroundColor = "#ffffff";
+        const isCorrect = index === correctOption;
+        const isSelected = index === selectedOption;
+        const isAnswered = selectedOption !== null;
 
-        if (selectedOption !== null) {
-          if (index === correctOption) backgroundColor = '#4caf50';
-          else if (index === selectedOption) backgroundColor = '#e53935';
+        let buttonStyle = [styles.optionButton];
+        let textStyle = [styles.optionText];
+
+        if (isAnswered) {
+          if (isCorrect) {
+            buttonStyle.push(styles.correctOption);
+            textStyle.push(styles.correctText);
+          } else if (isSelected) {
+            buttonStyle.push(styles.wrongOption);
+            textStyle.push(styles.wrongText);
+          }
         }
-        
+
         return (
           <TouchableOpacity
             key={index}
-            disabled={selectedOption !== null}
-            style={[Styles.optionButton, { backgroundColor }]}
+            disabled={isAnswered}
+            style={buttonStyle}
             onPress={() => onSelect(index)}
           >
-            <Text style={Styles.optionText}>{opt}</Text>
+            <Text style={textStyle}>{opt}</Text>
           </TouchableOpacity>
         );
       })}

@@ -1,4 +1,23 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
+import { styles } from './styles';
 
-// Parte da Amanda Francisco
+type Props = {
+    title: string;
+    subtitle?: string;
+    showDecorative?: boolean;
+};
+
+export default function HeaderTitle({
+    title,
+    subtitle,
+    showDecorative = true
+}: Props) {
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>{title}</Text>
+            {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+            {showDecorative && <View style={styles.decorativeLine} />}
+        </View>
+    );
+}
