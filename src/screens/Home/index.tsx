@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { styles } from './styles';
 import { ButtonPrimary } from '../../components/ButtonPrimary';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Logo from '../../components/Logo';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -10,8 +11,8 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>🎄 Quiz Natalino 🎅</Text>
-      <Text style={styles.subtitle}>Teste seus conhecimentos sobre o Natal!</Text>
+      <Logo />
+      <Text style={styles.subtitle}>Salve o Natal do Grinch!</Text>
 
       <TextInput
         style={styles.input}
