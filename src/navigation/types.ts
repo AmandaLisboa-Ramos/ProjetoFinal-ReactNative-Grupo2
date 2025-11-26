@@ -11,4 +11,3 @@ export type TabParamList = {
   HomeTab: undefined;
   RankingTab: undefined;
 };
-
