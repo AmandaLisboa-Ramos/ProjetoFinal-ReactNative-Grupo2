@@ -5,12 +5,12 @@ import { styles } from './styles';
 interface RankingData {
   id: string;
   nome: string;
-  pontos: number;
+  score: number; // a API retorna exatamente isso
 }
 
 export default function RankingScreen({ navigation }: any) {
   const [ranking, setRanking] = useState<RankingData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchRanking();
@@ -18,13 +18,15 @@ export default function RankingScreen({ navigation }: any) {
 
   const fetchRanking = async () => {
     try {
-      const response = await fetch('https://690a7b0d1a446bb9cc22a902.mockapi.io/Registro_Pontuacao');
+      const response = await fetch(
+        'https://690a7b0d1a446bb9cc22a902.mockapi.io/Registro_Pontuacao'
+      );
+
       const data: RankingData[] = await response.json();
 
-      const sorted = data.sort((a, b) => b.pontos - a.pontos);
+      const sorted = data.sort((a, b) => b.score - a.score);
 
       setRanking(sorted);
-
     } catch (error) {
       console.error('Erro ao buscar ranking:', error);
     } finally {
@@ -42,7 +44,7 @@ export default function RankingScreen({ navigation }: any) {
         <Text style={styles.nameText}>{item.nome}</Text>
       </View>
 
-      <Text style={styles.scoreText}>{item.pontos}</Text>
+      <Text style={styles.scoreText}>{item.score}</Text>
     </View>
   );
 
@@ -69,7 +71,7 @@ export default function RankingScreen({ navigation }: any) {
         <FlatList
           data={ranking}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           contentContainerStyle={styles.listContent}
         />
       </View>
