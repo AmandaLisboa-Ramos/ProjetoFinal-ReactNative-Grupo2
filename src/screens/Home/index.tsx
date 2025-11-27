@@ -1,13 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styles } from './styles';
 import { ButtonPrimary } from '../../components/ButtonPrimary';
-import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Logo from '../../components/Logo';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   const [name, setName] = useState('');
+
+  useEffect(() => {
+    loadName();
+  }, []);
+
+  async function loadName() {
+    try {
+      const savedName = await AsyncStorage.getItem('@game:playerName');
+      if (savedName) {
+        setName(savedName);
+      }
+    } catch (error) {
+      console.log('Erro ao carregar nome:', error);
+    }
+  }
+
+  async function handleStartGame() {
+    if (name.trim() === '') {
+      return Alert.alert('Ops!', 'Por favor, digite seu nome para começar.');
+    }
+
+    try {
+      await AsyncStorage.setItem('@game:playerName', name);
+      navigation.navigate('Quiz', { playerName: name });
+    } catch (error) {
+      console.log('Erro ao salvar nome:', error);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -25,7 +54,7 @@ export default function HomeScreen() {
       <TouchableOpacity>
         <ButtonPrimary
           title="Iniciar Jogo"
-          onPress={() => navigation.navigate('Quiz', { playerName: name })}
+          onPress={handleStartGame}
         />
       </TouchableOpacity>
 
