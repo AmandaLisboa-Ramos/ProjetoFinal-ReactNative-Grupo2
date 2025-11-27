@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import QuestionCard from '../../components/QuestionCard';
-import { styles } from './styles';
+import { getGeminiQuestions } from '../../api/gemini';
+import { getHardQuestion } from '../../api/trivia';
 
 type NavigationProp = any;
-
-function shuffle<T>(arr: T[]) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
 
 export default function QuizScreen({ navigation }: { navigation: NavigationProp }) {
 
@@ -31,21 +23,17 @@ export default function QuizScreen({ navigation }: { navigation: NavigationProp 
 
     async function load() {
       try {
-        const res = await fetch('https://tryvia.ptr.red/api.php?amount=10');
-        const data = await res.json();
-
-        const formatted = data.results.map((item: any) => {
-
-          const opts = shuffle([...item.incorrect_answers, item.correct_answer]);
-          return {
-            question: item.question,
-            options: opts,
-            answer: opts.indexOf(item.correct_answer),
-          };
-        });
+        // Busca 9 perguntas do Gemini sobre Natal
+        const geminiQuestions = await getGeminiQuestions();
+        
+        // Busca 1 pergunta difícil da API externa
+        const hardQuestion = await getHardQuestion();
+        
+        // Combina as perguntas (9 do Gemini + 1 da API externa)
+        const allQuestions = [...geminiQuestions, hardQuestion];
 
         if (mounted) {
-          setQuestions(formatted);
+          setQuestions(allQuestions);
           setLoading(false);
         }
       } catch (err) {
@@ -67,7 +55,9 @@ export default function QuizScreen({ navigation }: { navigation: NavigationProp 
 
     setSelectedOption(optionIndex);
 
-    if (optionIndex === current.answer) {
+    const isCorrect = optionIndex === current.answer;
+    
+    if (isCorrect) {
       setScore(prev => prev + 1);
     }
 
@@ -76,37 +66,33 @@ export default function QuizScreen({ navigation }: { navigation: NavigationProp 
         setIndex(prev => prev + 1);
         setSelectedOption(null);
       } else {
-        navigation.navigate('Result', { score });
+        // Calcula o score final incluindo a resposta atual
+        const finalScore = isCorrect ? score + 1 : score;
+        navigation.navigate('Result', { score: finalScore });
       }
     }, 1000);
   }
 
   if (loading) {
-  return (
-    <View style={styles.loadingContainer}>
-      <ActivityIndicator size="large" color="#ff9d00" />
-      <Text style={styles.loadingText}>Carregando perguntas...</Text>
-    </View>
-  );
-}
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator size="large" />
+        <Text style={{ marginTop: 12 }}>Carregando perguntas...</Text>
+      </View>
+    );
+  }
 
   if (!current) {
-  return (
-    <View style={[styles.loadingContainer, { padding: 20 }]}>
-      <Text style={styles.errorText}>
-        Não foi possível carregar perguntas. Tente novamente mais tarde.
-      </Text>
-    </View>
-  );
-}
-
     return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Bem vindo ao Quiz!</Text>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+        <Text>Não foi possível carregar perguntas. Tente novamente mais tarde.</Text>
       </View>
+    );
+  }
 
-      <Text style={styles.progressText}>
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#b91c1c', marginBottom: 16 }}>
         Pergunta {index + 1}/{questions.length}
       </Text>
 

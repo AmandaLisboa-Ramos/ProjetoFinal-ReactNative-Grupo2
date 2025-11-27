@@ -1,13 +1,8 @@
-// Tipos para navegação do Stack Navigator
-export type RootStackParamList = {
-  Home: undefined;
-  Quiz: undefined;
-  Result: { score: number };
-  Ranking: undefined;
-};
+import { Score } from '../context/QuizContext';
 
-// Tipos para navegação do Tab Navigator
-export type TabParamList = {
-  HomeTab: undefined;
-  RankingTab: undefined;
+export type RootStackParamList = {
+  Home: { playerName: string };
+  Quiz: { questionIndex: number, totalQuestions: number };
+  Result: { score: number, totalQuestions: number };
+  Ranking: { scores: Score[], playerName: string };
 };
