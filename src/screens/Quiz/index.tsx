@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import QuestionCard from '../../components/QuestionCard';
+import { styles } from './styles';
 
 type NavigationProp = any;
 
@@ -81,25 +82,31 @@ export default function QuizScreen({ navigation }: { navigation: NavigationProp 
   }
 
   if (loading) {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <ActivityIndicator size="large" />
-        <Text style={{ marginTop: 12 }}>Carregando perguntas...</Text>
-      </View>
-    );
-  }
+  return (
+    <View style={styles.loadingContainer}>
+      <ActivityIndicator size="large" color="#ff9d00" />
+      <Text style={styles.loadingText}>Carregando perguntas...</Text>
+    </View>
+  );
+}
 
   if (!current) {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20 }}>
-        <Text>Não foi possível carregar perguntas. Tente novamente mais tarde.</Text>
-      </View>
-    );
-  }
-
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#b91c1c', marginBottom: 16 }}>
+    <View style={[styles.loadingContainer, { padding: 20 }]}>
+      <Text style={styles.errorText}>
+        Não foi possível carregar perguntas. Tente novamente mais tarde.
+      </Text>
+    </View>
+  );
+}
+
+    return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Bem vindo ao Quiz!</Text>
+      </View>
+
+      <Text style={styles.progressText}>
         Pergunta {index + 1}/{questions.length}
       </Text>
 
