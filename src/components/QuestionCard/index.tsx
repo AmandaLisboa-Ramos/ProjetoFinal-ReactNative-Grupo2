@@ -6,7 +6,7 @@ type Props = {
   question: string;
   options: string[];
   selectedOption: number | null;
-  correctOption: number | null;
+  correctOption: number;
   onSelect: (index: number) => void;
 };
 
