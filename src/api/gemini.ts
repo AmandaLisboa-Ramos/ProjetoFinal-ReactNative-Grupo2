@@ -26,7 +26,7 @@ export async function getGeminiQuestions(): Promise<Question[]> {
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
-          temperature: 0.8, // Aumentei um pouco para mais variedade
+          temperature: 0.8,
           topK: 40,
           topP: 0.95,
           maxOutputTokens: 2048,
@@ -44,8 +44,6 @@ export async function getGeminiQuestions(): Promise<Question[]> {
     if (!textResponse) {
       throw new Error('Formato de resposta inválido');
     }
-
-    // Limpa o texto JSON
     const jsonText = textResponse.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     const rawQuestions = JSON.parse(jsonText);
 
@@ -53,14 +51,11 @@ export async function getGeminiQuestions(): Promise<Question[]> {
       throw new Error('Formato de perguntas inválido');
     }
 
-    // Mapeia do formato compacto para o objeto Question e embaralha
     return rawQuestions.map((item: any) => {
-      // item é [pergunta, opcoes, resposta]
       const questionText = item[0];
       const options = [...item[1]];
       const correctAnswer = item[2];
 
-      // Algoritmo de Fisher-Yates para embaralhar opções
       for (let i = options.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [options[i], options[j]] = [options[j], options[i]];
