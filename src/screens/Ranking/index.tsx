@@ -66,7 +66,6 @@ export default function RankingScreen({ navigation }: any) {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Galeria da Fama</Text>
-        <Text style={styles.subtitle}>Os melhores ajudantes do Noel</Text>
       </View>
 
       <View style={styles.rankingContainer}>

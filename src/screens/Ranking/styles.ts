@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     title: {
         fontSize: 45,
         fontFamily: 'MountainsofChristmas_700Bold',
-        marginBottom: 8,
+        marginBottom: 25,
         color: '#ff9d00ff',
         textShadowColor: '#8B4513',
         textShadowOffset: { width: -2, height: 2 },
