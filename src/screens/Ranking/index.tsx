@@ -5,13 +5,7 @@ import { styles } from './styles';
 interface RankingData {
   id: string;
   nome: string;
-  pontuacao: number;
-}
-
-interface ApiRankingData {
-  id: string;
-  nome: string;
-  pontos: string;
+  pontos: number;
 }
 
 export default function RankingScreen({ navigation }: any) {
@@ -22,19 +16,15 @@ export default function RankingScreen({ navigation }: any) {
     fetchRanking();
   }, []);
 
-  const fetchRanking = async (): Promise<void> => {
+  const fetchRanking = async () => {
     try {
       const response = await fetch('https://690a7b0d1a446bb9cc22a902.mockapi.io/Registro_Pontuacao');
-      const data: ApiRankingData[] = await response.json();
+      const data: RankingData[] = await response.json();
 
-      const formattedData: RankingData[] = data.map(item => ({
-        id: item.id,
-        nome: item.nome,
-        pontuacao: parseInt(item.pontos.replace(/\D/g, '')) || 0
-      }));
+      const sorted = data.sort((a, b) => b.pontos - a.pontos);
 
-      const sorted = formattedData.sort((a: RankingData, b: RankingData) => b.pontuacao - a.pontuacao);
       setRanking(sorted);
+
     } catch (error) {
       console.error('Erro ao buscar ranking:', error);
     } finally {
@@ -47,10 +37,12 @@ export default function RankingScreen({ navigation }: any) {
       <View style={styles.positionBadge}>
         <Text style={styles.positionText}>{index + 1}</Text>
       </View>
+
       <View style={styles.itemInfo}>
         <Text style={styles.nameText}>{item.nome}</Text>
       </View>
-      <Text style={styles.scoreText}>{item.pontuacao}</Text>
+
+      <Text style={styles.scoreText}>{item.pontos}</Text>
     </View>
   );
 
@@ -77,7 +69,7 @@ export default function RankingScreen({ navigation }: any) {
         <FlatList
           data={ranking}
           renderItem={renderItem}
-          keyExtractor={(item: RankingData) => item.id}
+          keyExtractor={(item) => item.id}
           contentContainerStyle={styles.listContent}
         />
       </View>
