@@ -1,8 +1,12 @@
 import { Score } from '../context/QuizContext';
 
 export type RootStackParamList = {
-  Home: { playerName: string };
+  MainTabs: undefined;
   Quiz: { questionIndex: number, totalQuestions: number };
   Result: { score: number, totalQuestions: number };
-  Ranking: { scores: Score[], playerName: string };
+};
+
+export type BottomTabParamList = {
+  Home: undefined;
+  Ranking: undefined;
 };

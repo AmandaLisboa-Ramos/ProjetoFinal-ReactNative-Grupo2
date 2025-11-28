@@ -15,6 +15,7 @@ export default function BG({ children }: { children: React.ReactNode }) {
                 resizeMode={ResizeMode.COVER}
                 shouldPlay
                 isLooping
+                isMuted={true}
             />
 
             <View style={StyleSheet.absoluteFill} pointerEvents="box-none">

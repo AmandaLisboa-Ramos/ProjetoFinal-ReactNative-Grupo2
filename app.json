@@ -26,7 +26,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-video"
+    ],
+    "extra": {
+      "GEMINI_API_KEY": "AIzaSyAyiWEAiLSj7Jv71F3odIe6tqz_V0Iear8"
     }
   }
 }
-
