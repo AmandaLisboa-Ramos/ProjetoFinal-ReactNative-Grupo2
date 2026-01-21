@@ -18,3 +18,6 @@ web-build/
 .vscode/
 .idea/
 
+
+# Security
+.env
